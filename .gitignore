@@ -1,0 +1,9 @@
+.env
+files/tls/postgresql/*.key
+files/tls/postgresql/*.crt
+files/tls/openldap/*.key
+files/tls/openldap/*.crt
+files/prometheus/htpasswd.txt
+files/prometheus/web-config.yml
+*.dump
+backups/
