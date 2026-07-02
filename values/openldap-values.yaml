@@ -1,14 +1,11 @@
 global:
-  ldapDomain: "example.org"
-
+  ldapDomain: "dc=example,dc=org"
 replicaCount: 1
-
 env:
   LDAP_ENABLE_TLS: "yes"
   LDAP_REQUIRE_TLS: "true"
   LDAPTLS_REQCERT: "demand"
   LDAP_ALLOW_ANON_BINDING: "no"
-
 customLdifFiles:
   bootstrap.ldif: |
     dn: ou=users,dc=example,dc=org
@@ -44,11 +41,9 @@ customLdifFiles:
     sn: User
     mail: analyst_user@example.org
     userPassword: {SSHA}HELLO_M_TECH
-
 initTLSSecret:
   tls_enabled: true
   secret: "openldap-tls"
-
 ltb-passwd:
   enabled: false
 phpldapadmin:
