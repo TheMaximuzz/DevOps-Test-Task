@@ -1,0 +1,49 @@
+executor: LocalExecutor
+
+apiServer:
+  apiServerConfig: |
+    from __future__ import annotations
+    import os
+    import ldap.filter
+    from flask_appbuilder.const import AUTH_LDAP
+    AUTH_TYPE = AUTH_LDAP
+    AUTH_LDAP_SERVER = "ldaps://openldap.default.svc.cluster.local:636"
+    AUTH_LDAP_USE_TLS = False
+    AUTH_LDAP_ALLOW_SELF_SIGNED = True
+    AUTH_LDAP_TLS_DEMAND = False
+    AUTH_LDAP_SEARCH = "ou=users,dc=example,dc=org"
+    AUTH_LDAP_UID_FIELD = "uid"
+    AUTH_LDAP_BIND_USER = "cn=admin,dc=example,dc=org"
+    AUTH_LDAP_BIND_PASSWORD = os.environ.get("LDAP_ADMIN_PASSWORD", "")
+    AUTH_LDAP_GROUP_FIELD = "memberOf"
+    AUTH_LDAP_SEARCH_FILTER = "(objectClass=inetOrgPerson)"
+    AUTH_ROLES_SYNC_AT_LOGIN = True
+    AUTH_USER_REGISTRATION = True
+    AUTH_USER_REGISTRATION_ROLE = "Public"
+    AUTH_ROLES_MAPPING = {
+        "cn=admins,ou=groups,dc=example,dc=org": ["Admin"],
+        "cn=analysts,ou=groups,dc=example,dc=org": ["Viewer"],
+    }
+
+extraEnvFrom: |
+  - secretRef:
+      name: openldap-credentials
+
+data:
+  metadataConnection:
+    user: appuser
+    pass: $POSTGRES_PASSWORD
+    protocol: postgresql
+    host: postgresql.default.svc.cluster.local
+    port: 5432
+    db: appdb
+    sslmode: require
+
+workers:
+  replicas: 0
+
+redis:
+  enabled: false
+
+statsd:
+  enabled: false
