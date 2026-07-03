@@ -1,0 +1,23 @@
+prometheus:
+  prometheusSpec:
+    secrets:
+      - prometheus-web-config
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 100m
+
+alertmanager:
+  enabled: false
+
+grafana:
+  resources:
+    requests:
+      memory: 150Mi
+      cpu: 50m
+
+kubeStateMetrics:
+  enabled: false
+
+nodeExporter:
+  enabled: false
