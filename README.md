@@ -25,7 +25,7 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ## Развёртывание с нуля
 
 ```bash
-git clone <URL-репозитория>
+git clone https://github.com/TheMaximuzz/DevOps-Test-Task.git
 cd DevOps-Test-Task
 
 minikube start --driver=docker --cpus=4 --memory=8g   # увеличьте, если позволяет железо
