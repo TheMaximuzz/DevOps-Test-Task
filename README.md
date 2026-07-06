@@ -80,8 +80,7 @@ kubectl create configmap openldap-bootstrap-ldif \
 kubectl apply -f k8s/openldap.yaml
 ```
 
-Порты: **389 (LDAP, TLS обязателен)** / **636 (LDAPS)** — не 1389/1636 (это было особенностью другого, отброшенного чарта).
-
+Порты: **389 (LDAP, TLS обязателен)** / **636 (LDAPS)**
 Задать реальные пароли пользователям (плейсхолдер в LDIF нерабочий по дизайну):
 ```bash
 kubectl port-forward svc/openldap 389:389 636:636 &
